@@ -1,27 +1,51 @@
-<div class="navbar navbar-default" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
+<!--START OF HEADER-->
+<header class="header black-bg">
+  <!--<div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+    </div>-->
+  <!--logo start-->
+  <a href="index.html" class="logo"><b>Oracle</b></a>
+  <!--logo end-->
 
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-      <a class="navbar-brand" href="#/">OracleWebrtc</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-      <ul class="nav navbar-nav">
-        <li><a href="#/">Home</a></li>
-        <li><a ng-href="#/">Client</a></li>
-        <li><a ng-href="#/">Contact</a></li>
-      </ul>
-    </div>
+  <div class="top-menu">
+    <ul class="nav pull-right top-menu">
+      <li><a class="logout" href="#!/main">Logout</a></li>
+    </ul>
   </div>
-</div>
+</header>
+<!--END OF HEADER-->
 
+<section id="main-content">
+  <section class="wrapper">
+    <div class="row">
 
-<p>This is the client view.</p>
+      <!--CUSTOMER ZONE START-->
+      <div class="col-lg-3 ds" id="client-sidenav">
+        <div class="centered">
+          <h4>Agent : Margaret Dorm</h4>
+          <p>
+            <a href="#"><img src="styles/assets/img/ui-sam.jpg" class="img-circle" width="60"></a>
+          </p>
+        </div>
+
+        
+        <div class="centered">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
+            <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
+            <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
+          </div>
+        </div>
+        <div class="centered mt">
+          <div class="btn-group">
+            <button type="button" class="btn btn-success btn-lg">Answer</button>
+            <button type="button" class="btn btn-danger btn-lg">Middle</button>
+          </div>
+
+        </div>
+
+      </div>
+      <!--CUSTOMER ZONE END-->
+    </div>
+  </section>
+</section>

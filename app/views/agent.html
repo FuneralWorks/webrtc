@@ -1,8 +1,6 @@
+<section id="container">
 <!--START OF HEADER-->
 <header class="header black-bg">
-    <!--<div class="sidebar-toggle-box">
-        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-    </div>-->
     <!--logo start-->
     <a href="index.html" class="logo"><b>Oracle</b></a>
     <!--logo end-->
@@ -18,12 +16,12 @@
 
 <!--START OF LEFT SIDEBAR-->
 <aside>
-    <div id="sidebar" class="nav-collapse " tabindex="5000" style="overflow: hidden; outline: none;">
+    <div id="sidebar" class="nav " tabindex="5000" style="overflow: hidden; outline: none;">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion" style="display: block;">
 
             <p class="centered">
-                <a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a>
+                <a href="#"><img src="styles/assets/img/ui-sam.jpg" class="img-circle" width="100"></a>
             </p>
             <h5 class="centered">Margaret Dorm</h5>
 
@@ -50,9 +48,87 @@
             <!-- sidebar menu end-->
     </div>
 </aside>
-<!--END OF LEFT SIDEBAR-->
+<!--LEFT SIDEBAR END -->
 
-<div class="col-lg-9">
+<!--MAIN CONTENT START-->
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <!--CHATZONE START-->
+            <div class="col-lg-6 ds">
+                <h3>CHAT</h3>
+                <div id="chat-zone">
+                    
+                </div>
+                
+                <input type="text" class="form-control">
+                
+                
 
-</div>
 
+            </div>
+            <!--CHATZONE END-->
+
+            <!--FORM ZONE START-->
+            <div class="col-lg-3 ds" id="form-zone">
+                <h3>FORM</h3>
+                <form class="horizontal-form style-form mt">
+                    <div class="form-group">
+                        <label class="control-label">Name :</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Surname :</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Email :</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Company :</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Company :</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                </form>
+                <div class="mt md">
+                    <button type="button" class="btn btn-success btn-lg btn-block">Submit</button>
+                </div>
+
+            </div>
+
+            <!--FORM ZONE END-->
+            <!--CUSTOMER ZONE START-->
+            <div class="col-lg-3 ds">
+                <h3>CUSTOMER INFO</h3>
+                <p class="centered mt">
+                    <a href="#"><img src="styles/assets/img/ui-sam.jpg" class="img-circle" width="100"></a>
+                </p>
+                <h5 class="centered">Margaret Dorm</h5>
+                <div class="centered">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
+                        <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
+                        <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
+                    </div>
+                </div>
+                <div class="centered mt">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success btn-lg">Answer</button>
+                        <button type="button" class="btn btn-danger btn-lg">Middle</button>
+                    </div>
+
+                </div>
+
+            </div>
+            <!--CUSTOMER ZONE END-->
+        </div>
+    </section>
+</section>
+<!--MAIN CONTENT END-->
+
+</section>
