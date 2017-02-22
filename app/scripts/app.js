@@ -11,7 +11,6 @@
  */
 angular
   .module('webrtcYoApp', [
-    'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
