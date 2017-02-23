@@ -1,134 +1,190 @@
+<script type="text/javascript">
+    var mySipUserId = "agentoracle@oracledemo.com";
+
+    var configuration = {
+        sipUser: mySipUserId,
+        wscUri: "wss://" + window.location.hostname + ":" + window.location.port + "/ws/webrtc/guest",
+        sipUsername: mySipUserId,
+        sipPassword: "oracle4webrtc",
+        localAudioId: "localAudio",
+        remoteAudioId: "remoteAudio",
+        ringtoneId: "ringtone",
+        ringbackId: "ringback",
+        localVideoId: "selfVideo",
+        remoteVideoId: "remoteVideo",
+        recordedVideoId: "recorded",
+        maxAttemptedCalls: 1,
+        maxActiveCalls: 1,
+        callbacks: {}
+    };
+
+    var recordedBlobs = [];
+    var fileBlobs = [];
+    var counter = 0;
+
+</script>
+
+
 <section id="container">
-<!--START OF HEADER-->
-<header class="header black-bg">
-    <!--logo start-->
-    <a href="index.html" class="logo"><b>Oracle</b></a>
-    <!--logo end-->
+    <!--START OF HEADER-->
+    <header class="header black-bg">
+        <!--logo start-->
+        <a href="index.html" class="logo"><b>Oracle</b></a>
+        <!--logo end-->
 
-    <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-            <li><a class="logout" href="#!/main">Logout</a></li>
-        </ul>
-    </div>
-</header>
-<!--END OF HEADER-->
-
-
-<!--START OF LEFT SIDEBAR-->
-<aside>
-    <div id="sidebar" class="nav " tabindex="5000" style="overflow: hidden; outline: none;">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion" style="display: block;">
-
-            <p class="centered">
-                <a href="#"><img src="styles/assets/img/ui-sam.jpg" class="img-circle" width="100"></a>
-            </p>
-            <h5 class="centered">Margaret Dorm</h5>
-
-            <li class="mt">
-                <a href="index.html">
-                    <i class="fa fa-edit"></i>
-                    <span>Push form</span>
-                </a>
-                <a href="index.html">
-                    <i class="fa fa-exchange"></i>
-                    <span>Terms & Conditions</span>
-                </a>
-                <a href="index.html">
-                    <i class="fa fa fa-video-camera"></i>
-                    <span>Video</span>
-                </a>
-                <a href="index.html">
-                    <i class="fa fa-file-movie-o"></i>
-                    <span>Announcement</span>
-                </a>
-            </li>
+        <div class="top-menu">
+            <ul class="nav pull-right top-menu">
+                <li><a class="logout" href="#!/main">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+    <!--END OF HEADER-->
 
 
-            <!-- sidebar menu end-->
-    </div>
-</aside>
-<!--LEFT SIDEBAR END -->
+    <!--START OF LEFT SIDEBAR-->
+    <aside>
+        <div id="sidebar" class="nav " tabindex="5000" style="overflow: hidden; outline: none;">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion" style="display: block;">
 
-<!--MAIN CONTENT START-->
-<section id="main-content">
-    <section class="wrapper">
-        <div class="row">
-            <!--CHATZONE START-->
-            <div class="col-lg-6 ds">
-                <h3>CHAT</h3>
-                <div id="chat-zone">
-                    
-                </div>
-                
-                <input type="text" class="form-control">
-                
-                
-
-
-            </div>
-            <!--CHATZONE END-->
-
-            <!--FORM ZONE START-->
-            <div class="col-lg-3 ds" id="form-zone">
-                <h3>FORM</h3>
-                <form class="horizontal-form style-form mt">
-                    <div class="form-group">
-                        <label class="control-label">Name :</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Surname :</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Email :</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Company :</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Company :</label>
-                        <input type="text" class="form-control">
-                    </div>
-
-                </form>
-                <div class="mt md">
-                    <button type="button" class="btn btn-success btn-lg btn-block">Submit</button>
-                </div>
-
-            </div>
-
-            <!--FORM ZONE END-->
-            <!--CUSTOMER ZONE START-->
-            <div class="col-lg-3 ds">
-                <h3>CUSTOMER INFO</h3>
-                <p class="centered mt">
+                <p class="centered">
                     <a href="#"><img src="styles/assets/img/ui-sam.jpg" class="img-circle" width="100"></a>
                 </p>
                 <h5 class="centered">Margaret Dorm</h5>
-                <div class="centered">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
-                        <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
-                        <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
-                    </div>
-                </div>
-                <div class="centered mt">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success btn-lg">Answer</button>
-                        <button type="button" class="btn btn-danger btn-lg">Middle</button>
-                    </div>
 
-                </div>
+                <li class="mt">
+                    <a href="index.html">
+                        <i class="fa fa-edit"></i>
+                        <span>Push form</span>
+                    </a>
+                    <a href="index.html">
+                        <i class="fa fa-exchange"></i>
+                        <span>Terms & Conditions</span>
+                    </a>
+                    <a href="index.html">
+                        <i class="fa fa fa-video-camera"></i>
+                        <span>Video</span>
+                    </a>
+                    <a href="index.html">
+                        <i class="fa fa-file-movie-o"></i>
+                        <span>Announcement</span>
+                    </a>
+                </li>
 
-            </div>
-            <!--CUSTOMER ZONE END-->
+
+                <!-- sidebar menu end-->
         </div>
+    </aside>
+    <!--LEFT SIDEBAR END -->
+
+    <!--MAIN CONTENT START-->
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row">
+                <!--CHATZONE START-->
+                <div class="col-lg-6 ds" id="chat-col">
+                    <h3>CHAT</h3>
+                    <div class="pn grey-panel" id="chat-zone">
+                        
+                        <div class="chat-container">
+
+                            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+                            <!-- Chat Messages -->
+                            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+                            <div class="chat-messages" id="agent-chat-messages">
+                                <div ng-repeat="message in messages">
+
+                                    <div class="sent-message" ng-class="{me: message.user.name == me.name}">
+                                        <span class="username">{{ message.user.name }}:</span> {{ message.data }}
+                                    </div>
+
+                                    <div class="clear"></div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+                            <!-- User Input -->
+                            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+                            <form class="form-inline" id="send-message" ng-submit="send()">
+                                <div class="form-group">
+                                    <input type="text" ng-model="textbox" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-theme03">Send</button>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <!--CHATZONE END-->
+
+                <!--FORM ZONE START-->
+                <div class="col-lg-3 ds" id="form-col">
+                    <h3>FORM</h3>
+                    <form class="horizontal-form style-form mt">
+                        <div class="form-group">
+                            <label class="control-label">Name :</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Surname :</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email :</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Company :</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Company :</label>
+                            <input type="text" class="form-control">
+                        </div>
+
+                    </form>
+                    <div class="mt md">
+                        <button type="button" class="btn btn-success btn-lg btn-block">Submit</button>
+                    </div>
+
+                </div>
+
+                <!--FORM ZONE END-->
+                <!--CUSTOMER ZONE START-->
+                <div class="col-lg-3 ds" id="customer-col">
+                    <h3>CUSTOMER INFO</h3>
+                    <p class="centered mt">
+                        <a href="#"><img src="styles/assets/img/ui-sam.jpg" class="img-circle" width="100"></a>
+                    </p>
+                    <h5 class="centered">Margaret Dorm</h5>
+                    <div class="centered">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
+                            <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
+                            <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
+                        </div>
+                    </div>
+                    <div class="centered mt">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-lg">Answer</button>
+                            <button type="button" class="btn btn-danger btn-lg">Middle</button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--CUSTOMER ZONE END-->
+            </div>
+        </section>
     </section>
-</section>
-<!--MAIN CONTENT END-->
+    <!--MAIN CONTENT END-->
 
 </section>

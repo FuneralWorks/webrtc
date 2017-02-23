@@ -997,13 +997,20 @@ PANELS CONFIGURATIONS
 /*Grey Panel*/
 
 .grey-panel {
+    height: fit-content;
 	text-align: center;
 	background: #dfdfe1;
+    padding-bottom: 5px;
+    box-shadow: none;
+}
+.grey-panel:hover {
+	box-shadow: none;
+	
 }
 .grey-panel .grey-header {
 	background: #ccd1d9;
 	padding: 3px;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 }
 .grey-panel h5 {
 	font-weight: 200;

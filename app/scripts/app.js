@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'chat'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -38,3 +39,13 @@ angular
         redirectTo: '/'
       });
   });
+  
+angular.module('chat').constant( 'config', {
+    rltm: {
+        service: 'pubnub', 
+        config: {
+            publishKey: 'demo',
+            subscribeKey: 'demo'
+        }
+    }
+});

@@ -1,3 +1,34 @@
+<script type="text/javascript">
+  var mediaRecorder;
+  var recordedVideo = document.querySelector('video#recorded');
+  var _blob2 = [];
+
+  var mySipUserId = "customer@oracledemo.com";
+  var agentSipUserId = "agentoracle@oracledemo.com";
+
+  var configuration = {
+    sipUser: mySipUserId,
+    wscUri: "wss://" + window.location.hostname + ":" + window.location.port + "/ws/webrtc/guest",
+    sipUsername: mySipUserId,
+    sipPassword: "oracle4webrtc",
+    localAudioId: "localAudio",
+    remoteAudioId: "remoteAudio",
+    ringtoneId: "ringback",
+    ringbackId: "ringback",
+    localVideoId: "selfVideo",
+    remoteVideoId: "remoteVideo",
+    recordedVideoId: "recorded",
+    maxAttemptedCalls: 1,
+    maxActiveCalls: 1,
+    callbacks: {}
+  };
+  console.log('Client configuration : ' + configuration);
+
+</script>
+
+<!--<script type="text/javascript" src="/api/wsc-common.js"></script>
+<script type="text/javascript" src="/api/wsc-call.js"></script>-->
+<!--<script type="text/javascript" src="chameleon-1.2.js"></script>-->
 <!--START OF HEADER-->
 <header class="header black-bg">
   <!--<div class="sidebar-toggle-box">
@@ -15,37 +46,71 @@
 </header>
 <!--END OF HEADER-->
 
-<section id="main-content">
-  <section class="wrapper">
-    <div class="row">
 
-      <!--CUSTOMER ZONE START-->
-      <div class="col-lg-3 ds" id="client-sidenav">
-        <div class="centered">
-          <h4>Agent : Margaret Dorm</h4>
-          <p>
-            <a href="#"><img src="styles/assets/img/ui-sam.jpg" class="img-circle" width="60"></a>
-          </p>
-        </div>
 
-        
-        <div class="centered">
-          <div class="btn-group">
-            <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
-            <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
-            <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
-          </div>
-        </div>
-        <div class="centered mt">
-          <div class="btn-group">
-            <button type="button" class="btn btn-success btn-lg">Answer</button>
-            <button type="button" class="btn btn-danger btn-lg">Middle</button>
-          </div>
 
-        </div>
+<!--CUSTOMER ZONE START-->
+<div class="col-lg-3 ds" id="client-sidenav">
+  <div class="centered">
+    <h4>Agent : Margaret Dorm</h4>
+    <p>
+      <a href="#"><img src="styles/assets/img/ui-sam.jpg" class="img-circle" width="60"></a>
+    </p>
+  </div>
 
-      </div>
-      <!--CUSTOMER ZONE END-->
+
+  <div class="centered">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
+      <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
+      <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
     </div>
-  </section>
-</section>
+  </div>
+
+  <div class="pn grey-panel mt">
+    <div class="grey-header">
+      <h5>CHAT</h5>
+    </div>
+    <div class="chat-container">
+      
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+        <!-- Chat Messages -->
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+        <div class="chat-messages">
+          <div ng-repeat="message in messages">
+
+            <div class="sent-message" ng-class="{me: message.user.name == me.name}">
+              <span class="username">{{ message.user.name }}:</span> {{ message.data }}
+            </div>
+
+            <div class="clear"></div>
+
+          </div>
+        </div>
+      
+
+
+
+
+      <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+      <!-- User Input -->
+      <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+      <form class="form-inline" id="send-message" ng-submit="send()">
+        <div class="form-group">
+          <input type="text" ng-model="textbox" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-theme03">Send</button>
+      </form>
+
+    </div>
+
+  </div>
+  <div class="centered mt">
+    <div class="btn-group">
+      <button type="button" class="btn btn-success btn-lg">Answer</button>
+      <button type="button" class="btn btn-danger btn-lg">Middle</button>
+    </div>
+  </div>
+
+</div>
+<!--CUSTOMER ZONE END-->
