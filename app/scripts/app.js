@@ -9,15 +9,21 @@
  *
  * Main module of the application.
  */
+
+
 angular
   .module('webrtcYoApp', [
-    'ngCookies',
-    'ngResource',
     'ngRoute',
-    'ngSanitize',
-    'ngTouch',
     'chat'
-  ])
+  ]).constant('config', {
+    rltm: {
+      service: 'pubnub',
+      config: {
+        publishKey: 'demo',
+        subscribeKey: 'demo'
+      }
+    }
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -39,13 +45,4 @@ angular
         redirectTo: '/'
       });
   });
-  
-angular.module('chat').constant( 'config', {
-    rltm: {
-        service: 'pubnub', 
-        config: {
-            publishKey: 'demo',
-            subscribeKey: 'demo'
-        }
-    }
-});
+

@@ -12,7 +12,7 @@ angular.module('webrtcYoApp')
   .controller('ClientCtrl',['$scope', 'Messages', function($scope, Messages) {
 
     // Sent Indicator
-    $scope.status = "";
+    $scope.status = '';
 
     // Keep an Array of Messages
     $scope.messages = [];
@@ -26,7 +26,7 @@ angular.module('webrtcYoApp')
     // Get Received Messages and Add it to Messages Array.
     // This will automatically update the view.
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    var chatmessages = document.querySelector(".chat-messages");
+    var chatmessages = document.querySelector('.chat-messages');
 
     Messages.receive(function(msg) {
         
@@ -45,11 +45,11 @@ angular.module('webrtcYoApp')
 
         Messages.send({data: $scope.textbox});
         
-        $scope.status = "sending";
-        $scope.textbox = "";
+        $scope.status = 'sending';
+        $scope.textbox = '';
         console.log('Message sent');
         setTimeout(function() { 
-            $scope.status = "" 
+            $scope.status = '';
         }, 1200 );
 
     };
