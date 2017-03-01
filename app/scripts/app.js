@@ -13,18 +13,8 @@
 
 angular
   .module('webrtcYoApp', [
-    'ngRoute',
-    'chat'
-  ]).constant('config', {
-    rltm: {
-      service: 'pubnub',
-      config: {
-        publishKey: 'demo',
-        subscribeKey: 'demo'
-      }
-    }
-  })
-  .config(function ($routeProvider) {
+    'ngRoute'
+  ]).config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',

@@ -28,9 +28,6 @@ module.exports = function(config) {
       'bower_components/angular-route/angular-route.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
-      'bower_components/highlightjs/highlight.pack.js',
-      'bower_components/rltm/web/rltm.js',
-      'bower_components/angular-chat/angular-chat.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
