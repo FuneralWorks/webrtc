@@ -8,9 +8,9 @@
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
-  
+
   <link href="https://fonts.googleapis.com/css?family=Ruda:400,700,900" rel="stylesheet">
-  <link href="styles/assets/css/bootstrap.css" rel="stylesheet">  
+  <link href="styles/assets/css/bootstrap.css" rel="stylesheet">
   <link href="styles/assets/css/style.css" rel="stylesheet">
   <link href="styles/assets/css/style-responsive.css" rel="stylesheet">
   <!-- bower:css -->
@@ -22,13 +22,16 @@
   <link href="styles/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
   <!-- Custom styles for this template -->
- 
+
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
-  
- <link rel="stylesheet" href="styles/main.css">
-  <!-- endbuild -->
 
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+  <script type="text/javascript">
+    var theAudioContext; //=  new AudioContext; 
+    var backgroundMusic; //= theAudioContext.createMediaElementSource(document.getElementById("back"));
+  </script>
 
 </head>
 
@@ -46,15 +49,15 @@
 
   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
   <script>
-    !function (A, n, g, u, l, a, r) {
-      A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
-        (A[l].q = A[l].q || []).push(arguments)
-      }, A[l].l = +new Date, a = n.createElement(g),
-        r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
-    } (window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+     !function (A, n, g, u, l, a, r) {
+       A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+         (A[l].q = A[l].q || []).push(arguments)
+       }, A[l].l = +new Date, a = n.createElement(g),
+         r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+     } (window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-XXXXX-X');
-    ga('send', 'pageview');
+     ga('create', 'UA-XXXXX-X');
+     ga('send', 'pageview');
   </script>
 
 
@@ -70,7 +73,7 @@
   <!---->
 
   <!-- build:js(.) scripts/vendor.js -->
-   
+
   <!-- bower:js -->
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
@@ -82,7 +85,7 @@
   <script src="bower_components/angular-touch/angular-touch.js"></script>
   <!-- endbower -->
 
- <!-- endbuild -->
+  <!-- endbuild -->
 
 
 

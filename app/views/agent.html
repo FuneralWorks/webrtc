@@ -7,7 +7,8 @@
 
         <div class="top-menu">
             <ul class="nav pull-right top-menu">
-                <li><a class="logout" ng-click="wscInit()">Login</a></li>
+                <!--<li><a class="logout" ng-click="wscInit()">Login</a></li>-->
+                <li>
 
             </ul>
         </div>
@@ -25,25 +26,72 @@
                     <a href="#"><img src="images/ui-sam.jpg" class="img-circle" width="100"></a>
                 </p>
                 <h5 class="centered">Margaret Dorm</h5>
+                <h5 class="centered">Status: {{chameleon.signallingState}}</h5>
+                <div class="centered">
+                    <div class="alert alert-info" ng-show="chameleon.signallingStateId == 0">
+                        <span><strong>Log in to activate.</strong></span>
+                    </div>
+
+                    <div class="alert alert-danger" ng-show="chameleon.signallingStateId == 1">
+                        <span><strong>Error:  </strong>{{chameleon.signallingError.code}} {{chameleon.signallingError.reason}}</span>
+                    </div>
+
+                    <div class="alert alert-warning" ng-show="chameleon.signallingStateId == 3">
+                        <span><strong>Wait for it...</strong></span>
+                    </div>
+
+                    <div class="alert alert-info" ng-show="chameleon.signallingStateId == 2">
+                        <span><strong>Session ID:  </strong>{{chameleon.wscSessionObj.getSessionId()}}</span>
+                    </div>
+
+                    <div class="alert alert-success" ng-show="chameleon.signallingStateId == 4">
+                        <span><strong>Session ID:  </strong>{{chameleon.wscSessionObj.getSessionId()}}</span>
+                    </div>
+                </div>
+                <div class="centered">
+                    <button type="button" class="btn btn-success" ng-hide="chameleon.signallingStateId == 1 || chameleon.signallingStateId == 2 || chameleon.signallingStateId == 4"
+                        ng-disabled="chameleon.signallingStateId == 3" ng-click="wscInit()"><span class="fa fa-sign-in"> </span> Activate</button>
+                        <button type="button" class="btn btn-success" ng-show="chameleon.signallingStateId == 1" ng-click="wscInit()"><span class="fa fa-refresh"> </span> Retry</button>
+                        <button type="button" class="btn btn-success" ng-show="chameleon.signallingStateId == 2" ng-click="wscInit()"><span class="fa fa-refresh"> </span> Login</button>
+                        <button type="button" class="btn btn-danger" ng-show="chameleon.signallingStateId == 4" ng-click="wscStop()"><span class="fa fa-power-off"> </span> Log Out</button>
+                </div>
 
                 <li class="mt">
-                    <a href="index.html">
+                    <a ng-click="pushForm1()" ng-show="chameleon.activeCallDC == 'OPEN' && syncData.form.active === false">
                         <i class="fa fa-edit"></i>
                         <span>Push form</span>
                     </a>
-                    <a href="index.html">
-                        <i class="fa fa-exchange"></i>
-                        <span>Terms & Conditions</span>
+                    <a ng-show="chameleon.activeCallDC == 'OPEN' && syncData.form.active === true" ng-click="resetForm1()">
+                        <i class="fa fa-refresh"></i>
+                        <span>Reset Form</span>
                     </a>
+                    <a ng-repeat="sharableDoc in sharableDocs" ng-click="sendUrl(sharableDoc)">
+                        
+                        <i class="fa fa-exchange"></i>
+                        <span>{{ sharableDoc.name }} </span>
+                    </a>
+                    <!--<div ng-show="showDocumentSharing">
+                            <div ng-repeat="sharableDoc in sharableDocs">
+                                <div class="col-sm-1 col-xs-2"><button ng-click="sendUrl(sharableDoc)">Send</button></div>
+                                <div class="col-sm-11 col-xs-10">
+                                    <p>{{ sharableDoc.name }} </p>
+                                </div>
+                            </div>
+                        </div>-->
                     <a href="index.html">
                         <i class="fa fa fa-video-camera"></i>
                         <span>Video</span>
                     </a>
+
+
                     <a href="index.html">
                         <i class="fa fa-file-movie-o"></i>
                         <span>Announcement</span>
                     </a>
                 </li>
+
+
+
 
 
                 <!-- sidebar menu end-->
@@ -57,55 +105,6 @@
             <div class="row">
                 <!--CHATZONE START-->
                 <div class="col-lg-6 ds" id="chat-col">
-                    <div class="well">
-
-                        <strong>Status:  </strong>{{chameleon.signallingState}}
-                        <br><br><br><br><br><br>
-
-                        <div class="alert alert-info" ng-show="chameleon.signallingStateId == 0">
-                            <span><strong>Log in to activate.</strong></span>
-                        </div>
-
-                        <div class="alert alert-danger" ng-show="chameleon.signallingStateId == 1">
-                            <span><strong>Error:  </strong>{{chameleon.signallingError.code}} {{chameleon.signallingError.reason}}</span>
-                        </div>
-
-                        <div class="alert alert-warning" ng-show="chameleon.signallingStateId == 3">
-                            <span><strong>Wait for it...</strong></span>
-                        </div>
-
-                        <div class="alert alert-info" ng-show="chameleon.signallingStateId == 2">
-                            <span><strong>Session ID:  </strong>{{chameleon.wscSessionObj.getSessionId()}}</span>
-                        </div>
-
-                        <div class="alert alert-success" ng-show="chameleon.signallingStateId == 4">
-                            <span><strong>Session ID:  </strong>{{chameleon.wscSessionObj.getSessionId()}}</span>
-                        </div>
-
-                        <button type="button" class="btn btn-default-oracle" ng-hide="chameleon.signallingStateId == 1 || chameleon.signallingStateId == 2 || chameleon.signallingStateId == 4"
-                            ng-disabled="chameleon.signallingStateId == 3" ng-click="wscInit()"><span class="fa fa-sign-in"> </span> Activate</button>
-                            <button type="button" class="btn btn-default-oracle" ng-show="chameleon.signallingStateId == 1" ng-click="wscInit()"><span class="fa fa-refresh"> </span> Retry</button>
-                            <button type="button" class="btn btn-default-oracle" ng-show="chameleon.signallingStateId == 2" ng-click="wscInit()"><span class="fa fa-refresh"> </span> Login</button>
-                            <button type="button" class="btn btn-default-oracle" ng-show="chameleon.signallingStateId == 4" ng-click="wscStop()"><span class="fa fa-power-off"> </span> Log Out</button>
-                            <br>
-                            
-                    </div>
-                    <div class="col-sm-4">
-                    <h4>Customer Data</h4>
-                        <div class="well">
-                            <span ng-hide="chameleon.isIncomingCall === true || chameleon.isActiveCall === true">No active call.</span>
-                            <div ng-show="chameleon.isIncomingCall === true || chameleon.isActiveCall === true">
-                                <h5>Customer Information</h5>
-                                <strong>First Name</strong>: Joe
-                                <br><strong>Last Name</strong>: Plumber
-                                <br><strong>Account ID</strong>: 5583077293
-                                <br><strong>Account Status</strong>: Active
-                                <br><strong>Pending Orders</strong>: 14
-                                <br><strong>Order History</strong>: N/A
-                                <br><strong>Support Status</strong>: Expired, renewal needed
-                            </div>
-                        </div>
-                    </div>
                     <h3>CHAT</h3>
                     <div class="pn grey-panel" id="chat-zone">
 
@@ -147,71 +146,97 @@
 
                 </div>
                 <!--CHATZONE END-->
-
+                
                 <!--FORM ZONE START-->
-                <div class="col-lg-3 ds" id="form-col">
-                    <h3>FORM</h3>
-                    <form class="horizontal-form style-form mt">
-                        <div class="form-group">
-                            <label class="control-label">Name :</label>
-                            <input type="text" class="form-control">
+                <div class="col-lg-3 ds" id="form-col" ng-show="chameleon.calls.active.length > 0 && showFormSharing && syncData.form.active === true">
+                    <h3>{{formFieldNames.title}}</h3>
+                    <!--Click the <button class="btn btn-danger btn-sm" type="button" ><span class="fa fa-exclamation-circle"></span></button>
+                        button to pull the customer's attention to a particular form entry.-->
+                    <div ng-repeat="field in formFieldNames.fields">
+                        <label class="control-label">{{field}}</label>:
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="syncData.form.fields[$index]">
+                            <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button" ng-click="focus('entry1')"><span class="fa fa-exclamation-circle"></span></button>
+                            </span>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Surname :</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Email :</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Company :</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Company :</label>
-                            <input type="text" class="form-control">
-                        </div>
-
-                    </form>
-                    <div class="mt md">
-                        <button type="button" class="btn btn-success btn-lg btn-block">Submit</button>
                     </div>
+                    <div class="centered">
+                        <p> Waiting for customer to submit the form...</p>
+                        <button ng-show="chameleon.activeCallDC == 'OPEN' && syncData.form.active === true" class="btn btn-default" type="button"
+                            ng-click="resetForm1()"><span class="fa fa-undo"></span> Reset</button>
 
+                    </div>
                 </div>
-                <div class="row" ng-show="showProgress">
+                <!--<span ng-show="chameleon.activeCallDC == 'OPEN'">Data channel open.</span>
+                    <span ng-show="chameleon.activeCallDC != 'OPEN'">Data channel closed.</span>-->
+                <!--<div class="mt md">
+                            <button type="button" class="btn btn-success btn-lg btn-block">Submit</button>
+                        </div>-->
 
-                    <!--FORM ZONE END-->
-                    <!--CUSTOMER ZONE START-->
-                    <div class="col-lg-3 ds" id="customer-col">
+
+                <!--FORM ZONE END-->
+
+
+                <div class="row" ng-show="showProgress"></div>
+
+                <!--CUSTOMER ZONE START-->
+                <div class="col-lg-3 ds" id="customer-col" ng-show="chameleon.isIncomingCall === true || chameleon.isActiveCall === true">
+                    <div ng-show="chameleon.isIncomingCall === true || chameleon.isActiveCall === true">
                         <h3>CUSTOMER INFO</h3>
-                        <p class="centered mt">
-                            <a href="#"><img src="images/ui-sam.jpg" class="img-circle" width="100"></a>
-                        </p>
                         <h5 class="centered">Margaret Dorm</h5>
-                        <div class="progress">
-                            <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                        <p class="centered mt">
+                            <a href="#"><img src="images/ui-sam.jpg" class="img-circle" width="60"></a>
+                        </p>
+                    </div>
+                    <div ng-show='chameleon.isActiveCall === true'>
+                        <div class="row" ng-show='chameleon.activeCallVideo == "SENDRECV" || chameleon.activeCallVideo == "SENDONLY"'>
+                            <video width="100%" id="selfVideo" autoplay muted></video>
                         </div>
-                        <div class="centered">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
-                                <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
-                                <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
-                            </div>
-                        </div>
-                        <video width="640" height="480" id="recorded" class="center-block" autoplay loop controls></video>
-                        <video width="515" height="384" id="remoteVideo" fullscreen autoplay></video>
-                        <div class="centered mt">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-success btn-lg">Answer</button>
-                                <button type="button" class="btn btn-danger btn-lg">Middle</button>
-                            </div>
 
+                        <div class="row" ng-show='chameleon.activeCallVideo == "SENDRECV" || chameleon.activeCallVideo == "RECVONLY"'>
+                            <strong>Remote Video</strong><br>
+                            <video width="100%" id="remoteVideo" fullscreen autoplay></video>
+                        </div>
+                        <button class="btn btn-default" type="button" ng-click="takePicture()" ng-show="showTakePicture">Take Picture</button>
+                    </div>
+                    <div ng-show='chameleon.isActiveCall === true && showTransfer' class="col-sm-12">
+                        <div class="well">
+                            <div class="row" ng-show="showProgress">
+                                <div class="progress">
+                                    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="row" ng-show="showPicture">
+                                <img id="pictureImg" class="center-block" />
+                            </div>
+                            <div class="row" ng-show="showMediaRecorder">
+                                <video width="640" height="480" id="recorded" class="center-block" autoplay loop controls></video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                    </div>
+                    <div class="centered">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
+                            <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
+                            <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="centered mt">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success btn-lg" ng-click="answerIncomingCall(call)"><span class="fa fa-thumbs-up"></span> Answer</button>
+                            <button type="button" class="btn btn-danger btn-lg" ng-click="declineIncomingCall(call)"><span class="fa fa-thumbs-down"></span> Ignore</button>
                         </div>
 
                     </div>
-                    <!--CUSTOMER ZONE END-->
+
                 </div>
+                <!--CUSTOMER ZONE END-->
+
         </section>
     </section>
     <!--MAIN CONTENT END-->

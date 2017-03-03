@@ -15,45 +15,59 @@
 </header>
 <!--END OF HEADER-->
 
+<div id="main-content">
+  <div class="wrapper">
+    <div class="row">
 
+      <!--CUSTOMER ZONE START-->
+      <div class="col-lg-3 ds" id="client-sidenav" ng-show="helpActive">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4>Agent : Margaret Dorm</h4>
+          </div>
+          <div class="col-sm-6">
+            <p>
+              <a href="#"><img src="images/ui-sam.jpg" class="img-circle" width="60"></a>
+            </p>
+          </div>
+        </div>
+        <div class="centered mt" ng-hide='chameleon.isReconnecting === true || chameleon.isActiveCall === true || chameleon.isOutgoingCall === true || madeHelpCall === true'>
+          <div class="btn-group">
+            <button type="button" class="btn btn-success btn-lg" ng-click="doVideoCall()">VideoCall</button>
+            <button type="button" class="btn btn-primary btn-lg" ng-click="doVoiceCall()">VoiceCall</button>
+          </div>
+        </div>
 
-<!--CUSTOMER ZONE START-->
-<div class="col-lg-3 ds" id="client-sidenav" ng-show="helpActive">
-  <div class="row">
-    <div class="col-sm-6">
-      <h4>Agent : Margaret Dorm</h4>
-    </div>
-    <div class="col-sm-6">
-      <p>
-        <a href="#"><img src="images/ui-sam.jpg" class="img-circle" width="60"></a>
-      </p>
-    </div>
-  </div>
+        <div class="row" ng-show="showMediaRecorder">
+          <video width="640" height="480" id="recorded" class="center-block" autoplay loop controls></video>
+        </div>
 
-  <div class="centered">
-
-    <video width="640" height="480" id="recorded" autoplay loop controls></video>
-  </div>
-
-
-  <div class="centered">
+        <div class="row">
+          <video ng-show='chameleon.activeCallVideo == "RECVONLY" || chameleon.activeCallVideo == "SENDRECV"' class="video" id="remoteVideo"
+            width="100%" fullscreen autoplay></video>
+            <div class="videoSubContainer">
+              <video ng-show='chameleon.activeCallVideo == "SENDONLY" || chameleon.activeCallVideo == "SENDRECV"' class="video" id="selfVideo"
+                width="100%" autoplay muted></video>
+            </div>
+        </div>
+        <!--<div class="centered">
     <div class="btn-group">
       <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
       <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
       <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
     </div>
-  </div>
+  </div>-->
 
-  <div class="pn grey-panel mt">
+        <!--<div class="pn grey-panel mt">
     <div class="grey-header">
       <h5>CHAT</h5>
-    </div>
-    <div class="chat-container">
+    </div>-->
+        <!--<div class="chat-container">-->
 
-      <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-      <!-- Chat Messages -->
-      <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-      <div class="chat-messages">
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+        <!-- Chat Messages -->
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+        <!--<div class="chat-messages">
         <div ng-repeat="message in messages">
 
           <div class="sent-message" ng-class="{me: message.user.name == me.name}">
@@ -63,34 +77,61 @@
           <div class="clear"></div>
 
         </div>
-      </div>
+      </div>-->
 
 
 
 
 
-      <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-      <!-- User Input -->
-      <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-      <form class="form-inline" id="send-message" ng-submit="send()">
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+        <!-- User Input -->
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+        <!--<form class="form-inline" id="send-message" ng-submit="send()">
         <div class="form-group">
           <input type="text" ng-model="textbox" class="form-control">
         </div>
         <button type="submit" class="btn btn-theme03">Send</button>
       </form>
 
-    </div>
+    </div>-->
 
-  </div>
-  <div class="centered mt">
-    <div class="btn-group">
-      <button type="button" class="btn btn-success btn-lg" ng-click="doVideoCall()">VideoCall</button>
-      <button type="button" class="btn btn-danger btn-lg">Middle</button>
+        <!--</div>-->
+
+
+      </div>
+      <!--CUSTOMER ZONE END-->
+
+      <!--FORM CONTAINER START-->
+      <div class="col-lg-3 ds" id="form-zone" ng-show="syncData.form.active === true">
+        <h3>{{formFieldNames.title}} </h3>
+        <div ng-repeat="field in formFieldNames.fields">
+
+          <label class="control-label">{{field}}</label>
+          <span id="entry1">
+          <input type="text" class="form-control" ng-model="syncData.form.fields[$index]">
+          </span>
+
+        </div>
+        <div class="centered mt">
+          <button class="btn btn-default btn-block" ng-click="submitForm()">Submit</button>
+        </div>
+      </div>
+      <!--FORM CONTAINER END-->
+      <div id="sharingArea" ng-show="showSharingArea" ng-class="{formshow : (showSharingArea === true && chameleon.isActiveCall === true),
+                                                                   formhide : (showSharingArea === false || chameleon.isActiveCall === false)}">
+        <div class="genericButton" ng-click="showSharingArea = false; widgetDocked = false;">
+          <span class="fa fa-times" style="float:right; font-size: 20px;"></span>
+        </div>
+        <iframe id="sharingIframe" allowfullscreen>Shared content will show up here</iframe>
     </div>
   </div>
+</div>
+
+
+
+
 
 </div>
-<!--CUSTOMER ZONE END-->
 
 <audio id="ringback" preload=auto src="xylophone.ogg" loop></audio>
 <audio id="activate" preload=auto src="waterdrop.ogg"></audio>

@@ -1,9 +1,13 @@
 #client-sidenav{
     float: right;
-    right: 0px;
-    margin-top: 60px;
-    height: 90%;
-    position: absolute;
+    
+}
+
+#customer-col{
+    float: right;  
+}
+#form-zone{
+    float: right;
 }
 
 #send-message{

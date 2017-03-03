@@ -63,7 +63,7 @@ angular.module('webrtcYoApp')
     var sharableDocs = [
       {
         name: "Terms and Conditions",
-        url: "docs/oracle.pdf",
+        url: "./images/oracle.pdf",
         width: "90%",
         height: "400px"
       },
@@ -100,7 +100,7 @@ angular.module('webrtcYoApp')
             $scope.receiveRecorder(newData);
             break;
           case "sendChat":
-            chat.sendMsg("customer:" + newData.MsgChat); // just show customer:Message Receive on the chatzone gui are
+            // chat.sendMsg("customer:" + newData.MsgChat); // just show customer:Message Receive on the chatzone gui are
             break;
           case "sendFile":
             $scope.receiveFile(newData);
@@ -279,7 +279,7 @@ angular.module('webrtcYoApp')
       console.log(dataToSend);
 
       chameleonService.calls.active[0].dataChannels[0].sendData(JSON.stringify(dataToSend));
-      chat.sendMsg("agent:" + document.getElementById("msg").value);
+      // chat.sendMsg("agent:" + document.getElementById("msg").value);
 
 
     }
@@ -356,7 +356,7 @@ angular.module('webrtcYoApp')
 
     $scope.answerIncomingCall = function (call) {
       console.log("Accept call button is clicked!");
-      $scope.resetForm1();
+      // $scope.resetForm1();
       $scope.showTransfer = false;
       $scope.showProgress = false;
       $scope.showMediaRecorder = false;
@@ -422,7 +422,7 @@ angular.module('webrtcYoApp')
         $scope.syncData.form.fields.push("");
       }
 
-      chat.Init();
+      // chat.Init();
 
       if (chameleonService.isActiveCall === true) chameleonService.calls.active[0].dataChannels[0].sendData(JSON.stringify($scope.syncData));
     };
@@ -453,8 +453,8 @@ angular.module('webrtcYoApp')
       $scope.wscInit()
     }
 
-    // theAudioContext = new AudioContext;
-    // backgroundMusic = theAudioContext.createMediaElementSource(document.getElementById("mediaAnnounc"));
+    theAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+    // backgroundMusic = theAudioContext.createMediaElementSource(document.querySelector('mediaAnnounc'));
 
   }]);
 

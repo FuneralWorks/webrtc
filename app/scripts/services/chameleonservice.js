@@ -91,8 +91,8 @@ angular.module('webrtcYoApp')
       callbacks: {}
     };
 
-    var theAudioContext; //=  new AudioContext; 
-    var backgroundMusic; // = theAudioContext.createMediaElementSource(document.getElementById("back"));
+    //  var theAudioContext; //=  new AudioContext; 
+    //  var backgroundMusic; //= theAudioContext.createMediaElementSource(document.getElementById("back"));
 
     // set up a basic logger
     chameleon.log = function (logMessage) {
@@ -631,15 +631,14 @@ angular.module('webrtcYoApp')
       if (callObj.direction == "Outgoing") chameleon.calls.outgoing.splice(chameleon.calls.outgoing.indexOf(callObj), 1);
 
 
-      //    callObj.accept(callObj.callConfig);
+      // callObj.accept(callObj.callConfig);
 
       navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-      constraints = {
+      var constraints = {
         audio: callObj.callConfig.shouldSendAudio(),
         video: callObj.callConfig.shouldSendVideo()
       };
-
       navigator.getUserMedia(constraints, onCapture, onCaptureError);
 
 
@@ -661,7 +660,7 @@ angular.module('webrtcYoApp')
         */
 
         var mixedOutput = theAudioContext.createMediaStreamDestination();
-        backgroundMusic.connect(mixedOutput);
+        // backgroundMusic.connect(mixedOutput);
 
         var audioT2 = mixedOutput.stream.getAudioTracks();
         stream.addTrack(audioT2[0]);
@@ -1611,11 +1610,11 @@ alert("stream ended");
         chameleon.log(stream);
         chameleon.log(stream.getVideoTracks());
         chameleon.log(stream.getAudioTracks());
-        element.src = webkitURL.createObjectURL(stream);
+        element.src = URL.createObjectURL(stream);
       };
 
       // attachSrcObject = function (element, srcObject) {
-      //   element.src = webkitURL.createObjectURL(srcObject);
+      //   element.src = URL.createObjectURL(srcObject);
       // };
     } else {
       // The browser does not support media streams

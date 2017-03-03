@@ -38,7 +38,7 @@ angular.module('webrtcYoApp')
     var sharableDocs = [
       {
         name: "Terms and Conditions",
-        url: "docs/oracle.pdf",
+        url: './images/oracle.pdf',
         width: "90%",
         height: "400px"
       },
@@ -146,7 +146,7 @@ angular.module('webrtcYoApp')
             $scope.showSharingArea = true;
             break;
           case "sendChat":
-            chat.sendMsg("agent:" + newData.MsgChat); // just show agent:Message Receive on the chatzone gui are
+            // chat.sendMsg("agent:" + newData.MsgChat); // just show agent:Message Receive on the chatzone gui are
             break;
         }
       }
@@ -246,7 +246,7 @@ angular.module('webrtcYoApp')
       console.log(dataToSend);
 
       chameleonService.calls.active[0].dataChannels[0].sendData(JSON.stringify(dataToSend));
-      chat.sendMsg("customer:" + document.getElementById("msg").value);
+      // chat.sendMsg("customer:" + document.getElementById("msg").value);
     }
 
     $scope.sendFile = function () {
@@ -423,14 +423,14 @@ angular.module('webrtcYoApp')
       console.log("Make voice call button clicked");
       $scope.syncData.form.active = false;
       chameleonService.makeCall(agentSipUserId, audioCall);
-      chat.Init();
+      // chat.Init();
     };
 
     $scope.doVideoCall = function () {
       console.log("Make video call button clicked");
       $scope.syncData.form.active = false;
       chameleonService.makeCall(agentSipUserId, videoCall);
-      chat.Init();
+      // chat.Init();
     };
 
 
