@@ -9,11 +9,20 @@
  *
  * Main module of the application.
  */
-
+angular.module('chat').constant( 'config', { 
+    rltm: { 
+        service: 'pubnub',  
+        config: { 
+            publishKey: 'demo', 
+            subscribeKey: 'demo' 
+        } 
+    } 
+});
 
 angular
   .module('webrtcYoApp', [
-    'ngRoute'
+    'ngRoute',
+    'chat'
   ]).config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -34,5 +43,6 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
   });
 

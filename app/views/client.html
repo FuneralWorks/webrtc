@@ -4,105 +4,118 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
     </div>-->
   <!--logo start-->
-  <a href="index.html" class="logo"><b>Oracle</b></a>
+  <a href="index.html" class="logo"><b>Renault</b></a>
   <!--logo end-->
 
-  <div class="top-menu">
-    <ul class="nav pull-right top-menu">
-      <li><a class="logout" ng-click="talkToAdvisor()">Help</a></li>
-    </ul>
-  </div>
 </header>
 <!--END OF HEADER-->
-
+ <div>
+   <img src="images/Capture.png" alt="" style="position:fixed">
+</div>
+<div id="helpButton" ng-hide="helpActive">
+  <button type="submit" class="btn btn-lg btn-theme03" ng-click="talkToAdvisor()">Help</button>
+</div>
 <div id="main-content">
   <div class="wrapper">
     <div class="row">
 
       <!--CUSTOMER ZONE START-->
-      <div class="col-lg-3 ds" id="client-sidenav" ng-show="helpActive">
-        <div class="row">
-          <div class="col-sm-6">
-            <h4>Agent : Margaret Dorm</h4>
+      <div class="col-lg-3 ds bounceInRight" id="client-sidenav" ng-show="helpActive">
+        <div class="row" ng-show='chameleon.isActiveCall === true'>
+          <div class="col-md-7" style="text-align: right; margin-top:10px;">
+            <h5>Margaret Dorm</h5>
           </div>
-          <div class="col-sm-6">
+          <div class="col-md-5">
             <p>
-              <a href="#"><img src="images/ui-sam.jpg" class="img-circle" width="60"></a>
+              <a href="#"><img src="images/ui-sherman.jpg" class="img-circle" id="clientAvatar" width="60"></a>
             </p>
           </div>
         </div>
-        <div class="centered mt" ng-hide='chameleon.isReconnecting === true || chameleon.isActiveCall === true || chameleon.isOutgoingCall === true || madeHelpCall === true'>
+        <div class="centered mt" id="callBtn" ng-hide='chameleon.isReconnecting === true || chameleon.isActiveCall === true || chameleon.isOutgoingCall === true || madeHelpCall === true'>
+          <h4>Ask to an advisor :</h4>
           <div class="btn-group">
-            <button type="button" class="btn btn-success btn-lg" ng-click="doVideoCall()">VideoCall</button>
-            <button type="button" class="btn btn-primary btn-lg" ng-click="doVoiceCall()">VoiceCall</button>
+            <button type="button" class="btn btn-success btn-lg" ng-click="doVideoCall()"><span class="fa fa-video-camera fa-3x"></span></button>
+            <button type="button" class="btn btn-primary btn-lg" ng-click="doVoiceCall()"><span class="fa fa-phone fa-3x"></button>
           </div>
         </div>
 
-        <div class="row" ng-show="showMediaRecorder">
+
+        <div class="row" ng-show="showMediaRecorder" ng-show='chameleon.isActiveCall === true'>
           <video width="640" height="480" id="recorded" class="center-block" autoplay loop controls></video>
         </div>
 
-        <div class="row">
-          <video ng-show='chameleon.activeCallVideo == "RECVONLY" || chameleon.activeCallVideo == "SENDRECV"' class="video" id="remoteVideo"
-            width="100%" fullscreen autoplay></video>
+        <div class="row" id="videoContainer" ng-show='chameleon.isActiveCall === true'>
+          <video ng-if='chameleon.activeCallVideo == "RECVONLY" || chameleon.activeCallVideo == "SENDRECV"' id="remoteVideo" width="100%"
+            fullscreen autoplay></video>
             <div class="videoSubContainer">
-              <video ng-show='chameleon.activeCallVideo == "SENDONLY" || chameleon.activeCallVideo == "SENDRECV"' class="video" id="selfVideo"
-                width="100%" autoplay muted></video>
+              <video ng-show='chameleon.activeCallVideo == "SENDONLY" || chameleon.activeCallVideo == "SENDRECV"' id="selfVideo" width="27%"
+                autoplay muted></video>
             </div>
         </div>
-        <!--<div class="centered">
-    <div class="btn-group">
-      <button type="button" class="btn btn-default"><i class="fa fa-camera"></i></button>
-      <button type="button" class="btn btn-default"><i class="fa fa-desktop"></i></button>
-      <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
-    </div>
-  </div>-->
+        <div ng-show='chameleon.isActiveCall === true'>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="takePicture()"><i class="fa fa-camera"></i></button>
+            <button type="button" class="btn btn-default" ng-click="startRecording()" ng-hide='chameleon.isRecordingMode === true || !showRecordMovie'><i class="fa fa-file-video-o"></i></button>
+            <button type="button" class="btn btn-default" ng-click="stopRecording()" ng-show='chameleon.isRecordingMode === true && showRecordMovie'><i class="fa fa-file-video-o"></i></button>
+            <button type="button" class="btn btn-default" ng-click="sendFile()" ng-show='showFileTransfer'><i class="fa fa-file"></i> <input type="file" id="my_file" style="visibility: hidden;" disable="false"></button>
+            <!--<div class="genericButton" ng-show='showFileTransfer'>
+              <input type="file" id="my_file" style="visibility: hidden;" disable="true">
+              <span  ng-hide="widgetDocked" class="fa fa-file fa-6"></span>
+            </div>-->
 
-        <!--<div class="pn grey-panel mt">
-    <div class="grey-header">
-      <h5>CHAT</h5>
-    </div>-->
-        <!--<div class="chat-container">-->
+          </div>
+        </div>
 
-        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-        <!-- Chat Messages -->
-        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-        <!--<div class="chat-messages">
-        <div ng-repeat="message in messages">
+        <div class="grey-panel" id="clientChatZone" ng-show='chameleon.isActiveCall === true'>
+          <div class="grey-header">
+            <h5>CHAT</h5>
+          </div>
+          <div class="chat-container">
 
-          <div class="sent-message" ng-class="{me: message.user.name == me.name}">
-            <span class="username">{{ message.user.name }}:</span> {{ message.data }}
+            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+            <!-- Chat Messages -->
+            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+            <div class="chat-messages">
+              <div ng-repeat="message in messages">
+
+                <ng-switch on="message.data.type">
+                  <div ng-switch-when="text" class="sent-message" ng-class="{me: message.user.name == me.name}">
+                    <span class="username">{{ message.user.name }}:</span> {{ message.data.text }}
+                  </div>
+                  <!--<div ng-switch-when="picture" class="picture">
+                    <img ng-src="{{ message.picture }}">
+                  </div>-->
+                </ng-switch>
+
+                <div class="clear"></div>
+
+              </div>
+            </div>
+
+
+
+
+
+            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+            <!-- User Input -->
+            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+            <form class="form-inline" id="send-message" ng-submit="send()">
+              <div class="form-group">
+                <input type="text" ng-model="textbox" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-theme03">Send</button>
+            </form>
+
           </div>
 
-          <div class="clear"></div>
-
         </div>
-      </div>-->
-
-
-
-
-
-        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-        <!-- User Input -->
-        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-        <!--<form class="form-inline" id="send-message" ng-submit="send()">
-        <div class="form-group">
-          <input type="text" ng-model="textbox" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-theme03">Send</button>
-      </form>
-
-    </div>-->
-
-        <!--</div>-->
 
 
       </div>
       <!--CUSTOMER ZONE END-->
 
       <!--FORM CONTAINER START-->
-      <div class="col-lg-3 ds" id="form-zone" ng-show="syncData.form.active === true">
+      <div class="col-lg-3 ds bounceInDown" id="form-zone" ng-show="syncData.form.active === true">
         <h3>{{formFieldNames.title}} </h3>
         <div ng-repeat="field in formFieldNames.fields">
 
@@ -113,18 +126,52 @@
 
         </div>
         <div class="centered mt">
-          <button class="btn btn-default btn-block" ng-click="submitForm()">Submit</button>
+          <button class="btn btn-primary btn-block" ng-click="submitForm()">Submit</button>
         </div>
       </div>
       <!--FORM CONTAINER END-->
-      <div id="sharingArea" ng-show="showSharingArea" ng-class="{formshow : (showSharingArea === true && chameleon.isActiveCall === true),
-                                                                   formhide : (showSharingArea === false || chameleon.isActiveCall === false)}">
-        <div class="genericButton" ng-click="showSharingArea = false; widgetDocked = false;">
-          <span class="fa fa-times" style="float:right; font-size: 20px;"></span>
+
+
+
+      <!--PICTURE AREA START-->
+      <div id="pictureContainer" ng-show="showPicture" ng-class="{formshow : (showPicture === true && chameleon.isActiveCall === true),
+                                                                    formhide : (showPicture === false || chameleon.isActiveCall === false)}">
+        <div class="btn btn-default" ng-click="sendPicture()" style="float: left;">
+          <span class="fa fa-share-square" style="font-size:40px"></span>
         </div>
-        <iframe id="sharingIframe" allowfullscreen>Shared content will show up here</iframe>
+        <div class="btn btn-default" ng-click="showPicture = false" style="float: right;">
+          <span class="fa fa-times" style="font-size:40px"></span>
+        </div>
+
+        <canvas id="pictureCanvas" width="640" height="480" />
     </div>
+    <!--PICTURE AREA END-->
+    <!--RECORDER CONTAINER START-->
+    <div id="recorderContainer" ng-show="showRecording" ng-class="{formshow : (showRecording === true && chameleon.isActiveCall === true),
+                                                                    formhide : (showRecording === false || chameleon.isActiveCall === false)}">
+      <div class="btn btn-default" ng-click="sendRecording()" style="float: left;">
+        <span class="fa fa-share-square" style="font-size:40px"></span>
+      </div>
+      <div class="btn btn-default" ng-click="showRecording = false" style="float: right;">
+        <span class="fa fa-times" style="font-size:40px"></span>
+      </div>
+      <video width="640" height="480" id="recorded" autoplay loop controls></video>
   </div>
+  <!--RECORDER CONTAINER END-->
+  <!--SHARING AREA START-->
+  <div class="col-lg-9">
+    <div id="sharingArea" ng-show="showSharingArea" ng-class="{formshow : (showSharingArea === true && chameleon.isActiveCall === true),
+                                                                   formhide : (showSharingArea === false || chameleon.isActiveCall === false)}">
+      <div class="genericButton" ng-click="showSharingArea = false;">
+        <span class="fa fa-times" style="float:right; font-size: 20px;"></span>
+      </div>
+      <iframe id="sharingIframe" allowfullscreen>Shared content will show up here</iframe>
+  </div>
+</div>
+
+
+<!--SHARING AREA END-->
+</div>
 </div>
 
 

@@ -8,8 +8,54 @@
  * Controller of the webrtcYoApp
  */
 angular.module('webrtcYoApp')
-  .controller('ClientCtrl', function ($scope, chameleonService) {
-
+  .controller('ClientCtrl', function ($scope, chameleonService, Messages) {
+ // Sent Indicator 
+    $scope.status = ""; 
+ 
+    // Keep an Array of Messages 
+    $scope.messages = []; 
+ 
+    $scope.me = {name: 'Arthur Cobalt'}; 
+ 
+    // Set User Data 
+    Messages.user($scope.me); 
+ 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // Get Received Messages and Add it to Messages Array. 
+    // This will automatically update the view. 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    var chatmessages = document.querySelector(".chat-messages"); 
+ 
+    Messages.receive(function(msg) { 
+         
+        $scope.messages.push(msg); 
+        console.log('Message received'); 
+        setTimeout(function() { 
+             chatmessages.scrollTop = chatmessages.scrollHeight; 
+        }, 10); 
+ 
+    }); 
+ 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // Send Messages 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    $scope.send = function() { 
+ 
+        Messages.send({
+          data: {
+            text: $scope.textbox,
+            type: 'text'
+          }
+      }); 
+         
+        $scope.status = "sending"; 
+        $scope.textbox = ""; 
+        console.log('Message sent'); 
+        setTimeout(function() {  
+            $scope.status = ""  
+        }, 1200 ); 
+ 
+    }; 
 
 // SHARED CUSTOMIZATION FIELDS TO MERGE A IN A SAME FILE
     var showDocumentSharing = true;
@@ -39,14 +85,14 @@ angular.module('webrtcYoApp')
       {
         name: "Terms and Conditions",
         url: './images/oracle.pdf',
-        width: "90%",
+        width: "100%",
         height: "400px"
       },
       {
         name: "WSC Video",
         url: "https://www.youtube.com/embed/UHONP1p_ZiA",
-        width: "560px",
-        height: "315px"
+        width: "100%",
+        height: "100%"
       }
     ];
 
@@ -193,9 +239,12 @@ angular.module('webrtcYoApp')
         //	    console.log(dataToSend);
 
         chameleonService.calls.active[0].dataChannels[0].sendData(JSON.stringify(dataToSend));
+        
       }
+      
       $scope.showPicture = false;
       $scope.widgetDocked = false;
+      
     }
 
     $scope.sendRecording = function () {
