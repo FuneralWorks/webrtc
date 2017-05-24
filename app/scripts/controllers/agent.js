@@ -8,17 +8,20 @@
  * Controller of the webrtcYoApp
  */
 angular.module('webrtcYoApp')
-  .controller('AgentCtrl', function ($scope, chameleonService, Messages) {
+  .controller('AgentCtrl', function ($scope, chameleonService, Messages, custom) {
 
     // Sent Indicator 
     $scope.status = "";
 
-    $scope.image;
+    $scope.imgCount = 0;
+    $scope.images = [];
 
     // Keep an Array of Messages 
     $scope.messages = [];
 
-    $scope.me = { name: 'Margaret Dorm' };
+    $scope.me = { name: custom.agentName };
+
+
 
     // Set User Data 
     Messages.user($scope.me);
@@ -84,44 +87,23 @@ angular.module('webrtcYoApp')
     var fileBlobs = [];
     var counter = 0;
 
-    var showDocumentSharing = true;
-    var showSendAudioAnnouncement = true;
-    var showFormSharing = true;
-    var showTakePicture = true;
-    var showRecordMovie = true;
-    var showDesktopSharing = true;
-    var showFileTransfer = true;
-    var showChat = true;
+    $scope.agentName = custom.agentName;
+    $scope.clientName = custom.clientName;
+    
+    var showDocumentSharing = custom.showDocumentSharing;
+    var showSendAudioAnnouncement = custom.showSendAudioAnnouncement;
+    var showFormSharing = custom.showFormSharing;
+    var showTakePicture = custom.showTakePicture;
+    var showRecordMovie = custom.showRecordMovie;
+    var showDesktopSharing = custom.showDesktopSharing;
+    var showFileTransfer = custom.showFileTransfer;
+    var showChat = custom.showChat;
+    
+    var _blob2 = [];
 
-
-    // Sets the names of the fields in the shared form
-    var formFieldNames = {
-      title: "Complaint Form",
-      fields: [
-        "Name",
-        "Address",
-        "Subscribed Service",
-        "Telephone",
-        "Date",
-        "Comments"
-      ]
-    };
-
-
-    var sharableDocs = [
-      {
-        name: "Terms and Conditions",
-        url: "./images/oracle.pdf",
-        width: "100%",
-        height: "500px"
-      },
-      {
-        name: "WSC Video",
-        url: "https://www.youtube.com/embed/UHONP1p_ZiA",
-        width: "100%",
-        height: "500px"
-      }
-    ];
+    var formFieldNames = custom.formFieldNames;
+    var sharableDocs = custom.sharableDocs;
+  
 
     console.log("DOM is Ready");
 
@@ -179,19 +161,31 @@ angular.module('webrtcYoApp')
 
       if (data.chunkStart + data.chunkSize >= data.base64Len) { // Last Chunk
         img.src = $scope.base64Array.join("");
-        $scope.image = img.src;
+        $scope.images.push(img.src);
+
         $scope.showProgress = false;
         Messages.send({
           data: {
-            text: '',
+            text: $scope.imgCount,
             type: 'img'
           }
         });
 
+        Messages.send({
+          data: {
+            text: 'Picture well received',
+            type: 'text'
+          }
+        });
+        $scope.imgCount++;
 
       }
 
 
+    };
+
+    $scope.getImage = function(i){
+      return $scope.images[i];
     };
 
     $scope.receiveFile = function (data) {
@@ -252,7 +246,7 @@ angular.module('webrtcYoApp')
     $scope.receiveRecorder = function (data) {
 
       var progressBar = document.getElementById("progressBar");
-      var recorder = document.getElementById('recorded');
+      // var recorder = document.getElementById('recorded');
 
       if (data.chunkStart == 0) {
         $scope.showProgress = true;
@@ -266,12 +260,18 @@ angular.module('webrtcYoApp')
       recordedBlobs[data.chunkStart / data.chunkSize] = $scope._base64ToArray(data.recording);
 
       if (data.chunkStart + data.chunkSize >= data.base64Len) { // Last Chunk
-
+        
         //alert("Agent String:"+recordedBlobs.join("").length);
         var superBuffer2 = new Blob(recordedBlobs);
         $scope.showProgress = false;
         //alert("Agent Blob:"+superBuffer2.size);
         console.log($scope.configuration.recordedVideoId);
+         Messages.send({
+          data: {
+            text: 'Recorded video received',
+            type: 'text'
+          }
+        });
         attachSrcObject(document.getElementById($scope.configuration.recordedVideoId), superBuffer2);
       }
     };
@@ -360,11 +360,11 @@ angular.module('webrtcYoApp')
         height: doc.height
       };
       Messages.send({
-          data: {
-            text: 'Document shared.',
-            type: 'text'
-          }
-        });
+        data: {
+          text: 'Document shared.',
+          type: 'text'
+        }
+      });
       chameleonService.calls.active[0].dataChannels[0].sendData(JSON.stringify(dataToSend));
     }
 
@@ -375,10 +375,10 @@ angular.module('webrtcYoApp')
 
     $scope.showFormSharing = showFormSharing;
     $scope.showTakePicture = showTakePicture;
-    $scope.showChat = showChat;
-
+    $scope.showChat = chameleonService.isChatActivated;
 
     $scope.chameleon = chameleonService;
+
     $scope.pageIsLoaded = false;
     $scope.showProgress = false;
     $scope.showTransfer = false;
@@ -496,6 +496,12 @@ angular.module('webrtcYoApp')
       // chat.Init();
 
       if (chameleonService.isActiveCall === true) chameleonService.calls.active[0].dataChannels[0].sendData(JSON.stringify($scope.syncData));
+      Messages.send({
+        data: {
+          text: "Formulaire bien reçu",
+          type: 'text'
+        }
+      });
     };
 
 

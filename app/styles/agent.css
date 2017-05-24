@@ -1,0 +1,55 @@
+
+
+.agentAvatarLogged{
+    border: 6px solid #5cb85c;
+}
+
+.agentAvatarBusy{
+    border: 6px solid #d9534f;
+}
+
+.agentAvatarUnlogged{
+    border: 6px solid ghostwhite;
+}
+
+.agentAvatar{
+    box-shadow: 0 0 0px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 100%;
+}
+
+
+#client-sidenav{
+    padding-top: 15px;
+    float: right;
+    height: 700px;
+    box-shadow: 0px 4px 21px -4px rgba(0,0,0,0.75);
+    
+}
+#agent-chat-messages{
+  border-radius: 5px; 
+  height: 300px;
+}
+#agent-chat-zone{
+ 
+  background-color: #fff;
+  
+}
+
+
+
+#customer-col{
+    float: right;
+    height: 700px;
+    box-shadow: 0px 4px 21px -4px rgba(0,0,0,0.75);
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: bounceInRight;
+    animation-name: bounceInRight;
+
+}
+
+#client-avatar{
+    box-shadow: 0 0px 10px 2px rgba(0,0,0,0.5);
+}

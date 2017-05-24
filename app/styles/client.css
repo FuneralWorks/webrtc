@@ -1,0 +1,28 @@
+#client-chat-zone{
+  background-color: #fff;
+}
+
+#clientChatZone{
+  border-radius: 5px;
+}
+
+#helpButton{
+  position: fixed;
+  right: 0px;
+  bottom: 50%;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  height: 160px;
+  background-color: #ed5565;
+}
+
+#my_file{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+}

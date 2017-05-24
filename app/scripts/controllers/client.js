@@ -8,98 +8,79 @@
  * Controller of the webrtcYoApp
  */
 angular.module('webrtcYoApp')
-  .controller('ClientCtrl', function ($scope, chameleonService, Messages) {
- // Sent Indicator 
-    $scope.status = ""; 
- 
+  .controller('ClientCtrl', function ($scope, chameleonService, Messages, custom) {
+    // Sent Indicator 
+    $scope.status = "";
+
     // Keep an Array of Messages 
-    $scope.messages = []; 
- 
-    $scope.me = {name: 'Arthur Cobalt'}; 
- 
+    $scope.messages = [];
+
+    $scope.me = { name: custom.clientName };
+
     // Set User Data 
-    Messages.user($scope.me); 
- 
+    Messages.user($scope.me);
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     // Get Received Messages and Add it to Messages Array. 
     // This will automatically update the view. 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    var chatmessages = document.querySelector(".chat-messages"); 
- 
-    Messages.receive(function(msg) { 
-         
-        $scope.messages.push(msg); 
-        console.log('Message received'); 
-        setTimeout(function() { 
-             chatmessages.scrollTop = chatmessages.scrollHeight; 
-        }, 10); 
- 
-    }); 
- 
+    var chatmessages = document.querySelector(".chat-messages");
+
+    Messages.receive(function (msg) {
+      console.log(msg);
+      $scope.messages.push(msg);
+      console.log('Message received');
+      setTimeout(function () {
+        chatmessages.scrollTop = chatmessages.scrollHeight;
+      }, 10);
+
+    });
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     // Send Messages 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    $scope.send = function() { 
- 
-        Messages.send({
-          data: {
-            text: $scope.textbox,
-            type: 'text'
-          }
-      }); 
-         
-        $scope.status = "sending"; 
-        $scope.textbox = ""; 
-        console.log('Message sent'); 
-        setTimeout(function() {  
-            $scope.status = ""  
-        }, 1200 ); 
- 
-    }; 
+    $scope.send = function () {
 
-// SHARED CUSTOMIZATION FIELDS TO MERGE A IN A SAME FILE
-    var showDocumentSharing = true;
-    var showSendAudioAnnouncement = true;
-    var showFormSharing = true;
-    var showTakePicture = true;
-    var showRecordMovie = true;
-    var showDesktopSharing = true;
-    var showFileTransfer = true;
-    var showChat = true;
-    var mediaRecorder;
+      Messages.send({
+        data: {
+          text: $scope.textbox,
+          type: 'text'
+        }
+      });
 
-    var formFieldNames = {
-      title: "Complaint Form",
-      fields: [
-        "Name",
-        "Address",
-        "Subscribed Service",
-        "Telephone",
-        "Date",
-        "Comments"
-      ]
+      $scope.status = "sending";
+      $scope.textbox = "";
+      console.log('Message sent');
+      setTimeout(function () {
+        $scope.status = ""
+      }, 1200);
+
     };
 
 
-    var sharableDocs = [
-      {
-        name: "Terms and Conditions",
-        url: './images/oracle.pdf',
-        width: "100%",
-        height: "400px"
-      },
-      {
-        name: "WSC Video",
-        url: "https://www.youtube.com/embed/UHONP1p_ZiA",
-        width: "100%",
-        height: "100%"
-      }
-    ];
 
-// END OF SHARED CUSTOMIZATION
+    $scope.agentName = custom.agentName;
+    $scope.clientName = custom.clientName;
 
-    var recordedVideo = document.querySelector('video#recorded');
+    var showDocumentSharing = custom.showDocumentSharing;
+    var showSendAudioAnnouncement = custom.showSendAudioAnnouncement;
+    var showFormSharing = custom.showFormSharing;
+    var showTakePicture = custom.showTakePicture;
+    var showRecordMovie = custom.showRecordMovie;
+    var showDesktopSharing = custom.showDesktopSharing;
+    var showFileTransfer = custom.showFileTransfer;
+    var showChat = custom.showChat;
+
     var _blob2 = [];
+
+    var formFieldNames = custom.formFieldNames;
+
+
+    var sharableDocs = custom.sharableDocs;
+
+    // END OF SHARED CUSTOMIZATION
+
+
 
     var mySipUserId = "customer@oracledemo.com";
     var agentSipUserId = "agentoracle@oracledemo.com";
@@ -214,6 +195,7 @@ angular.module('webrtcYoApp')
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       $scope.widgetDocked = true;
       $scope.showPicture = true;
+
     }
 
     $scope.sendPicture = function () {
@@ -239,12 +221,13 @@ angular.module('webrtcYoApp')
         //	    console.log(dataToSend);
 
         chameleonService.calls.active[0].dataChannels[0].sendData(JSON.stringify(dataToSend));
-        
+
       }
-      
+
       $scope.showPicture = false;
       $scope.widgetDocked = false;
-      
+
+
     }
 
     $scope.sendRecording = function () {
@@ -482,6 +465,13 @@ angular.module('webrtcYoApp')
       // chat.Init();
     };
 
+    $scope.doChat = function () {
+      console.log("Make chat button clicked");
+      $scope.syncData.form.active = false;
+      chameleonService.makeChat(true);
+      chameleonService.log('Chat state dochart: ' + chameleonService.isChatActivated);
+      // chat.Init();
+    };
 
     $scope.endHelp = function () {
       chameleonService.closeSession();
@@ -507,6 +497,12 @@ angular.module('webrtcYoApp')
     $scope.submitForm = function () {
       $scope.syncData.form.active = false;
       $scope.widgetDocked = false;
+      Messages.send({
+        data: {
+          text: 'Formulaire envoyé',
+          type: 'text'
+        }
+      });
     };
 
     $scope.outboundCallee;

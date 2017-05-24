@@ -4,16 +4,22 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
     </div>-->
   <!--logo start-->
-  <a href="index.html" class="logo"><b>Renault</b></a>
+  <a href="index.html" class="logo"><b>AssurTout</b></a>
   <!--logo end-->
+  <div class="top-menu">
+    <div class="pull-right">
+      <button type="button" class="btn btn-theme04">Me déconnecter</button>
+    </div>
+    <h5 class="pull-right" id="clientStatus">{{clientName}}: connecté(e)</h5>
+  </div>
 
 </header>
 <!--END OF HEADER-->
- <div>
-   <img src="images/Capture.png" alt="" style="position:fixed">
+<div>
+  <img src="images/CaptureAssure.png" alt="" style="position:fixed; width: 100%">
 </div>
-<div id="helpButton" ng-hide="helpActive">
-  <button type="submit" class="btn btn-lg btn-theme03" ng-click="talkToAdvisor()">Help</button>
+<div ng-hide="helpActive">
+  <button type="submit" class="btn btn-lg btn-theme04" ng-click="talkToAdvisor()" id="helpButton">Besoin d'aide?</button>
 </div>
 <div id="main-content">
   <div class="wrapper">
@@ -21,34 +27,39 @@
 
       <!--CUSTOMER ZONE START-->
       <div class="col-lg-3 ds bounceInRight" id="client-sidenav" ng-show="helpActive">
+
+        <div class="centered mt" ng-show="madeHelpCall === true || chameleon.isOutgoingCall === true || chameleon.isReconnecting === true">
+          <h4>Recherche d'un agent disponible...</h4>
+          <span class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></span>
+        </div>
+
         <div class="row" ng-show='chameleon.isActiveCall === true'>
           <div class="col-md-7" style="text-align: right; margin-top:10px;">
-            <h5>Margaret Dorm</h5>
+            <h5>{{agentName}}</h5>
           </div>
           <div class="col-md-5">
             <p>
-              <a href="#"><img src="images/ui-sherman.jpg" class="img-circle" id="clientAvatar" width="60"></a>
+              <a href="#"><img src="images/ui-agent.png" class="img-circle" id="clientAvatar" width="60"></a>
             </p>
           </div>
         </div>
         <div class="centered mt" id="callBtn" ng-hide='chameleon.isReconnecting === true || chameleon.isActiveCall === true || chameleon.isOutgoingCall === true || madeHelpCall === true'>
-          <h4>Ask to an advisor :</h4>
+          <h4>Demander à un agent:</h4>
           <div class="btn-group">
-            <button type="button" class="btn btn-success btn-lg" ng-click="doVideoCall()"><span class="fa fa-video-camera fa-3x"></span></button>
-            <button type="button" class="btn btn-primary btn-lg" ng-click="doVoiceCall()"><span class="fa fa-phone fa-3x"></button>
+            <button type="button" class="btn btn-default btn-lg" ng-click="doVideoCall()"><span class="fa fa-video-camera fa-3x"></span></button>
+            <!--<button type="button" class="btn btn-default btn-lg" ng-click="doVoiceCall()"><span class="fa fa-phone fa-3x"></button>-->
           </div>
         </div>
 
 
-        <div class="row" ng-show="showMediaRecorder" ng-show='chameleon.isActiveCall === true'>
-          <video width="640" height="480" id="recorded" class="center-block" autoplay loop controls></video>
-        </div>
+
 
         <div class="row" id="videoContainer" ng-show='chameleon.isActiveCall === true'>
           <video ng-if='chameleon.activeCallVideo == "RECVONLY" || chameleon.activeCallVideo == "SENDRECV"' id="remoteVideo" width="100%"
             fullscreen autoplay></video>
             <div class="videoSubContainer">
-              <video ng-show='chameleon.activeCallVideo == "SENDONLY" || chameleon.activeCallVideo == "SENDRECV"' id="selfVideo" width="27%"
+              <video ng-show='chameleon.activeCallVideo == "SENDONLY" || chameleon.activeCallVideo == "SENDRECV"' class="resize" id="selfVideo"
+                width="27%" ng-class="{'videoRecording': chameleon.isRecordingMode, 'videoUnrecording': !chameleon.isRecordingMode}"
                 autoplay muted></video>
             </div>
         </div>
@@ -56,8 +67,9 @@
           <div class="btn-group">
             <button type="button" class="btn btn-default" ng-click="takePicture()"><i class="fa fa-camera"></i></button>
             <button type="button" class="btn btn-default" ng-click="startRecording()" ng-hide='chameleon.isRecordingMode === true || !showRecordMovie'><i class="fa fa-file-video-o"></i></button>
-            <button type="button" class="btn btn-default" ng-click="stopRecording()" ng-show='chameleon.isRecordingMode === true && showRecordMovie'><i class="fa fa-file-video-o"></i></button>
+            <button type="button" class="btn btn-warning" ng-click="stopRecording()" ng-show='chameleon.isRecordingMode === true && showRecordMovie'><i class="fa fa-file-video-o"></i></button>
             <button type="button" class="btn btn-default" ng-click="sendFile()" ng-show='showFileTransfer'><i class="fa fa-file"></i> <input type="file" id="my_file" style="visibility: hidden;" disable="false"></button>
+            <button type="button" class="btn btn-danger" ng-click="hangupCall()" ng-show='chameleon.isActiveCall'><i class="fa fa-phone"></i></button>
             <!--<div class="genericButton" ng-show='showFileTransfer'>
               <input type="file" id="my_file" style="visibility: hidden;" disable="true">
               <span  ng-hide="widgetDocked" class="fa fa-file fa-6"></span>
@@ -66,7 +78,7 @@
           </div>
         </div>
 
-        <div class="grey-panel" id="clientChatZone" ng-show='chameleon.isActiveCall === true'>
+        <div class="grey-panel" id="client-chat-zone" ng-show='chameleon.isActiveCall === true'>
           <div class="grey-header">
             <h5>CHAT</h5>
           </div>
@@ -91,8 +103,6 @@
 
               </div>
             </div>
-
-
 
 
 
@@ -126,7 +136,7 @@
 
         </div>
         <div class="centered mt">
-          <button class="btn btn-primary btn-block" ng-click="submitForm()">Submit</button>
+          <button class="btn btn-primary btn-block" ng-click="submitForm()">Valider</button>
         </div>
       </div>
       <!--FORM CONTAINER END-->
@@ -142,10 +152,10 @@
         <div class="btn btn-default" ng-click="showPicture = false" style="float: right;">
           <span class="fa fa-times" style="font-size:40px"></span>
         </div>
-
         <canvas id="pictureCanvas" width="640" height="480" />
     </div>
     <!--PICTURE AREA END-->
+
     <!--RECORDER CONTAINER START-->
     <div id="recorderContainer" ng-show="showRecording" ng-class="{formshow : (showRecording === true && chameleon.isActiveCall === true),
                                                                     formhide : (showRecording === false || chameleon.isActiveCall === false)}">
@@ -155,7 +165,7 @@
       <div class="btn btn-default" ng-click="showRecording = false" style="float: right;">
         <span class="fa fa-times" style="font-size:40px"></span>
       </div>
-      <video width="640" height="480" id="recorded" autoplay loop controls></video>
+      <video width="640" height="480"  id="recorded" autoplay="true" loop></video>
   </div>
   <!--RECORDER CONTAINER END-->
   <!--SHARING AREA START-->

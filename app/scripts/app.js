@@ -22,7 +22,8 @@ angular.module('chat').constant( 'config', {
 angular
   .module('webrtcYoApp', [
     'ngRoute',
-    'chat'
+    'chat',
+    'ngAnimate'
   ]).config(function ($routeProvider) {
     $routeProvider
       .when('/', {

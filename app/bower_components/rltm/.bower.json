@@ -1,0 +1,37 @@
+{
+  "name": "rltm",
+  "homepage": "https://github.com/pubnub/rltm",
+  "authors": [
+    "PubNub"
+  ],
+  "description": "Abstraction for realtime apis",
+  "main": "web/rltm.js",
+  "keywords": [
+    "realtime",
+    "abstrction",
+    "pubnub",
+    "socket.io",
+    "faye"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "highlightjs": "^9.9.0"
+  },
+  "version": "1.2.1",
+  "_release": "1.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.2.1",
+    "commit": "af1c9d1143cb1b76d7c78485449ee3477efd8876"
+  },
+  "_source": "https://github.com/pubnub/rltm.git",
+  "_target": "^1.0.3",
+  "_originalSource": "rltm"
+}
